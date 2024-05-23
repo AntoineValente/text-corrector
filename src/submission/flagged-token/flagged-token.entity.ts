@@ -1,4 +1,4 @@
-enum FlaggedTokenKind {
+export enum FlaggedTokenKind {
   CONJUGATION = 'CONJUGATION',
   NUMBER = 'NUMBER',
   GENDER_AGREEMENT = 'GENDER_AGREEMENT',
@@ -10,10 +10,8 @@ enum FlaggedTokenKind {
 
 export class FlaggedToken {
   id: number;
-  textSubmissionId: number;
   offset: number;
   length: number;
-  label: number;
   suggestion: string;
   reason: string;
   kind: FlaggedTokenKind;
