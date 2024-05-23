@@ -2,18 +2,23 @@ import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { TextSubmissionSchema } from './schema/text-submission.schema';
 import { FlaggedTokenSchema } from './schema/flagged-token.schema';
+import { ConfigModule, ConfigService } from '@nestjs/config';
+import { DataSourceOptions } from 'typeorm';
 
 @Module({
   imports: [
-    TypeOrmModule.forRoot({
-      type: 'postgres',
-      host: 'localhost',
-      port: 5432,
-      username: 'postgres',
-      password: 'password',
-      entities: [TextSubmissionSchema, FlaggedTokenSchema],
-      synchronize: true,
-      autoLoadEntities: true,
+    TypeOrmModule.forRootAsync({
+      imports: [ConfigModule],
+      inject: [ConfigService],
+      useFactory: async (configService: ConfigService) => ({
+        type: configService.get<DataSourceOptions['type']>('DB_TYPE'),
+        host: configService.get<string>('DB_HOST'),
+        port: configService.get<number>('DB_PORT'),
+        username: configService.get<string>('DB_USERNAME'),
+        password: configService.get<string>('DB_PASSWORD'),
+        entities: [TextSubmissionSchema, FlaggedTokenSchema],
+        synchronize: true,
+      }),
     }),
     TypeOrmModule.forFeature([TextSubmissionSchema, FlaggedTokenSchema]),
   ],

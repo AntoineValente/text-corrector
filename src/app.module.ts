@@ -4,9 +4,17 @@ import { AppService } from './app.service';
 import { SubmissionModule } from './submission/submission.module';
 import { DatabaseModule } from './database/database.module';
 import { CommonModule } from './common/common.module';
+import { ConfigModule } from '@nestjs/config';
+import { AiModelModule } from './ai-model/ai-model.module';
 
 @Module({
-  imports: [DatabaseModule, SubmissionModule, CommonModule],
+  imports: [
+    ConfigModule.forRoot(),
+    DatabaseModule,
+    SubmissionModule,
+    CommonModule,
+    AiModelModule,
+  ],
   controllers: [AppController],
   providers: [AppService],
 })
