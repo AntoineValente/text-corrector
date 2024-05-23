@@ -6,7 +6,7 @@ import {
   PrimaryGeneratedColumn,
 } from 'typeorm';
 
-@Entity()
+@Entity('text_submission')
 export class TextSubmissionSchema implements TextSubmission {
   @PrimaryGeneratedColumn()
   id: number;

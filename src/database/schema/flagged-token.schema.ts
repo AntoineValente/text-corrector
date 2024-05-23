@@ -4,7 +4,7 @@ import {
 } from 'src/submission/flagged-token/flagged-token.entity';
 import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
 
-@Entity()
+@Entity('flagged_token')
 export class FlaggedTokenSchema implements FlaggedToken {
   @PrimaryGeneratedColumn()
   id: number;
