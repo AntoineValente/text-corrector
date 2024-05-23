@@ -12,7 +12,7 @@ export class TextSubmissionService {
   ) {}
 
   async create() {
-    const a = await this.textSubmissionRepository.create({
+    const a = await this.textSubmissionRepository.save({
       content: 'hello',
     });
 

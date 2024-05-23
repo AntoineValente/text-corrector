@@ -13,7 +13,7 @@ export abstract class BaseAbstractRepostitory<T extends HasId>
     this.entity = entity;
   }
 
-  public create(data: DeepPartial<T>): T {
-    return this.entity.create(data);
+  public save(data: DeepPartial<T>) {
+    return this.entity.save(data);
   }
 }
