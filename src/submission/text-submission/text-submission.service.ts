@@ -11,11 +11,9 @@ export class TextSubmissionService {
     private readonly textSubmissionRepository: ITextSubmissionRepository,
   ) {}
 
-  async create() {
-    const a = await this.textSubmissionRepository.save({
+  create() {
+    return this.textSubmissionRepository.save({
       content: 'hello',
     });
-
-    return a;
   }
 }

@@ -1,5 +1,9 @@
-import { DeepPartial, Repository } from 'typeorm';
+import { DeepPartial } from '../types/DeepPartial';
 import { IBaseRepository } from './base.interface';
+
+interface Repository<T> {
+  save(data: DeepPartial<T>): Promise<T>;
+}
 
 interface HasId {
   id: number;
