@@ -18,7 +18,7 @@ interface GoogleUser {
 @Injectable()
 export class AuthService {
   constructor(
-    private jwtService: JwtService,
+    private readonly jwtService: JwtService,
     @Inject(UserRepositoryToken) private userRepository: IUserRepository,
   ) {}
 

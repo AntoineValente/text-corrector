@@ -5,6 +5,8 @@ import { SubmitService } from './submit.service';
 import { FlaggedTokenModule } from 'src/flagged-token/flagged-token.module';
 import { TextSubmissionModule } from 'src/text-submission/text-submission.module';
 import { SubmitController } from './submit.controller';
+import { AuthModule } from 'src/auth/auth.module';
+import { UserModule } from 'src/user/user.module';
 
 @Module({
   imports: [
@@ -12,6 +14,8 @@ import { SubmitController } from './submit.controller';
     AiModelModule,
     FlaggedTokenModule,
     TextSubmissionModule,
+    AuthModule,
+    UserModule,
   ],
   providers: [SubmitService],
   controllers: [SubmitController],

@@ -1,4 +1,9 @@
-import { Inject, Injectable } from '@nestjs/common';
+import {
+  BadRequestException,
+  ForbiddenException,
+  Inject,
+  Injectable,
+} from '@nestjs/common';
 import { SubmitDto } from './submit.dto';
 import { AiModelToken, IAiModel } from 'src/ai-model/ai-model.interface';
 
@@ -20,7 +25,10 @@ export class SubmitService {
   ) {}
 
   async execute(dto: SubmitDto): Promise<Result<TextSubmission>> {
-    const { content } = dto;
+    const { content, user } = dto;
+
+    if (!content) throw new BadRequestException('No content provided');
+    if (!user) throw new ForbiddenException();
 
     const prompt = buildSubmitPrompt(content);
 
@@ -38,6 +46,7 @@ export class SubmitService {
     const textSubmission = await this.textSubmissionRepository.save({
       content,
       flaggedTokens: parsedFlaggedTokens,
+      user,
     });
 
     return {
