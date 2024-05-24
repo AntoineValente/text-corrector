@@ -1,4 +1,4 @@
-import { DeepPartial } from '../types/DeepPartial';
+import { DeepPartial } from '../types/deep-partial';
 import { IBaseRepository } from './base.interface';
 
 interface Repository<T> {

@@ -1,3 +1,5 @@
+import { TextSubmission } from 'src/text-submission/text-submission.entity';
+
 export enum FlaggedTokenKind {
   CONJUGATION = 'CONJUGATION',
   NUMBER = 'NUMBER',
@@ -10,6 +12,7 @@ export enum FlaggedTokenKind {
 
 export class FlaggedToken {
   id: number;
+  textSubmission: TextSubmission;
   offset: number;
   length: number;
   suggestion: string;

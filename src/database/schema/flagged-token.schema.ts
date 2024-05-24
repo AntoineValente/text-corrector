@@ -1,13 +1,20 @@
+import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
+import { TextSubmissionSchema } from './text-submission.schema';
 import {
   FlaggedToken,
   FlaggedTokenKind,
-} from 'src/submission/flagged-token/flagged-token.entity';
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+} from 'src/flagged-token/flagged-token.entity';
 
 @Entity('flagged_token')
 export class FlaggedTokenSchema implements FlaggedToken {
   @PrimaryGeneratedColumn()
   id: number;
+
+  @ManyToOne(
+    () => TextSubmissionSchema,
+    (textSubmission) => textSubmission.flaggedTokens,
+  )
+  textSubmission: TextSubmissionSchema;
 
   @Column('int')
   offset: number;

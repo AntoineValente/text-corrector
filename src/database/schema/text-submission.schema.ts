@@ -1,10 +1,12 @@
-import { TextSubmission } from 'src/submission/text-submission/text-submission.entity';
 import {
   Column,
   CreateDateColumn,
   Entity,
+  OneToMany,
   PrimaryGeneratedColumn,
 } from 'typeorm';
+import { FlaggedTokenSchema } from './flagged-token.schema';
+import { TextSubmission } from 'src/text-submission/text-submission.entity';
 
 @Entity('text_submission')
 export class TextSubmissionSchema implements TextSubmission {
@@ -13,6 +15,12 @@ export class TextSubmissionSchema implements TextSubmission {
 
   @Column()
   content: string;
+
+  @OneToMany(
+    () => FlaggedTokenSchema,
+    (flaggedToken) => flaggedToken.textSubmission,
+  )
+  flaggedTokens?: FlaggedTokenSchema[];
 
   @CreateDateColumn()
   createdAt: Date;
