@@ -4,6 +4,7 @@ import { TextSubmissionSchema } from './schema/text-submission.schema';
 import { FlaggedTokenSchema } from './schema/flagged-token.schema';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { DataSourceOptions } from 'typeorm';
+import { UserSchema } from './schema/user.schema';
 
 @Module({
   imports: [
@@ -16,11 +17,15 @@ import { DataSourceOptions } from 'typeorm';
         port: configService.get<number>('DB_PORT'),
         username: configService.get<string>('DB_USERNAME'),
         password: configService.get<string>('DB_PASSWORD'),
-        entities: [TextSubmissionSchema, FlaggedTokenSchema],
+        entities: [TextSubmissionSchema, FlaggedTokenSchema, UserSchema],
         synchronize: true,
       }),
     }),
-    TypeOrmModule.forFeature([TextSubmissionSchema, FlaggedTokenSchema]),
+    TypeOrmModule.forFeature([
+      TextSubmissionSchema,
+      FlaggedTokenSchema,
+      UserSchema,
+    ]),
   ],
   exports: [TypeOrmModule],
 })

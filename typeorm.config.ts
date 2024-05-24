@@ -14,5 +14,5 @@ export default new DataSource({
   password: configService.get<string>('DB_PASSWORD'),
   synchronize: true,
   entities: ['dist/**/*.schema{ .ts,.js}'],
-  migrations: ['dist/migrations/*{.ts,.js}', './migrations/*{.ts,.js}'],
+  migrations: ['dist/migrations/*{.ts,.js}'],
 });
