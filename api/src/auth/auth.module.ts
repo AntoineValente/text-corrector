@@ -6,6 +6,7 @@ import { AuthController } from './auth.controller';
 import { ConfigModule } from '@nestjs/config';
 import { PassportModule } from '@nestjs/passport';
 import { GoogleStrategy } from './strategies/google.strategy';
+import { JwtStrategy } from './strategies/jwt.strategy';
 import { JwtAuthGuard } from './guards/jwt-auth.guard';
 
 @Module({
@@ -14,7 +15,7 @@ import { JwtAuthGuard } from './guards/jwt-auth.guard';
     ConfigModule,
     PassportModule.register({ defaultStrategy: 'google' }),
   ],
-  providers: [AuthService, GoogleStrategy, JwtAuthGuard],
+  providers: [AuthService, GoogleStrategy, JwtStrategy, JwtAuthGuard],
   exports: [JwtAuthGuard],
   controllers: [AuthController],
 })

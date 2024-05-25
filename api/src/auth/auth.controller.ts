@@ -2,10 +2,14 @@ import { Controller, Get, Req, Res, UseGuards } from '@nestjs/common';
 import { Response } from 'express';
 import { AuthService } from './auth.service';
 import { GoogleOauthGuard } from './guards/google-oauth.guard';
+import { ConfigService } from '@nestjs/config';
 
 @Controller('auth')
 export class AuthController {
-  constructor(private authService: AuthService) {}
+  constructor(
+    private readonly authService: AuthService,
+    private readonly configService: ConfigService,
+  ) {}
 
   @Get('google')
   @UseGuards(GoogleOauthGuard)
@@ -23,6 +27,6 @@ export class AuthController {
       secure: false,
     });
 
-    return res.redirect('https://google.com');
+    return res.redirect(this.configService.get<string>('FRONTEND_URL'));
   }
 }
