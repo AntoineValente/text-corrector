@@ -1,52 +1,51 @@
-import { useState } from "react";
+import { ChangeEvent, useCallback, useEffect, useState } from "react";
 import { usePostSubmit } from "./submit/usePostSubmit";
-import { useCookies } from "react-cookie";
+import debounce from "lodash.debounce";
+import { Review } from "./components/Review";
+
+const DEBOUNCE_TIME_MS = 500;
 
 function App() {
-  const [cookies] = useCookies(["access_token"]);
-
   const [content, setContent] = useState("");
-  const { mutate, data } = usePostSubmit();
+  const {
+    mutate: submitContent,
+    data: textSubmissionResult,
+    reset,
+    isLoading,
+  } = usePostSubmit();
 
-  const onSubmit = () => {
-    if (!content) return;
+  const onContentChange = (e: ChangeEvent<HTMLTextAreaElement>) =>
+    setContent(e.currentTarget.value);
 
-    mutate(content);
-  };
+  const debounceSubmitContent = useCallback(
+    debounce(submitContent, DEBOUNCE_TIME_MS),
+    []
+  );
 
-  const onSigninGoogle = () => {
-    window.open(import.meta.env.VITE_GOOGLE_LOGIN_URL, "_self");
-  };
+  useEffect(() => {
+    if (content) debounceSubmitContent(content);
+    else reset();
+  }, [content]);
+
+  const flaggedTokens = textSubmissionResult?.payload?.flaggedTokens ?? [];
 
   return (
-    // <div style={{ display: "flex", flexDirection: "column" }}>
-    //   <div>
-    //     <input value={content} onChange={(e) => setContent(e.target.value)} />
-
-    //     <button onClick={onSubmit}>Send</button>
-    //   </div>
-
-    //   <pre>{JSON.stringify(data, null, 2)}</pre>
-
-    //   {!cookies.access_token && (
-    //     <button onClick={onSigninGoogle}>Sign in with google</button>
-    //   )}
-    // </div>
-    <div className="h-screen flex justify-center items-center">
-      <Card>
-        <CardHeader>
-          <CardTitle>Card Title</CardTitle>
-          <CardDescription>Card Description</CardDescription>
-        </CardHeader>
-        <CardContent>
-          <p>Card Content</p>
-        </CardContent>
-        <CardFooter>
-          <p>Card Footer</p>
-        </CardFooter>
-      </Card>
-      Copy
-      <div className="w-full max-w-screen-md"></div>
+    <div className="flex h-screen w-full">
+      <div className="h-full flex-grow px-48 py-36 bg-gray-50">
+        <textarea
+          className="focus:outline-none resize-none text-lg w-full bg-gray-50 h-full"
+          placeholder="Write the text you want to correct!"
+          value={content}
+          onChange={onContentChange}
+        />
+      </div>
+      <div className="w-1/3 max-w-[500px]">
+        <Review
+          content={content}
+          flaggedTokens={flaggedTokens}
+          isLoading={isLoading}
+        />
+      </div>
     </div>
   );
 }

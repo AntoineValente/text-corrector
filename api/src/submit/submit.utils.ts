@@ -3,8 +3,8 @@ import { SubmitResult } from './submit.types';
 import { ObjectSchema, array, mixed, number, object, string } from 'yup';
 
 const submissionResultSchema: ObjectSchema<SubmitResult> = object({
-  offset: number(),
-  length: number(),
+  startIndex: number(),
+  endIndex: number(),
   suggestion: string(),
   reason: string(),
   kind: mixed<FlaggedTokenKind>().oneOf(Object.values(FlaggedTokenKind)),

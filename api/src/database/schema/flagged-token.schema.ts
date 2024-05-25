@@ -17,10 +17,10 @@ export class FlaggedTokenSchema implements FlaggedToken {
   textSubmission: TextSubmissionSchema;
 
   @Column('int')
-  offset: number;
+  startIndex: number;
 
   @Column('int')
-  length: number;
+  endIndex: number;
 
   @Column()
   suggestion: string;

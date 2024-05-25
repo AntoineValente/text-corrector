@@ -5,6 +5,6 @@ export type TextSubmission = {
   id: number;
   content: string;
   createdAt: Date;
-  flaggedTokens?: FlaggedToken[];
+  flaggedTokens: FlaggedToken[];
   user: User;
 };

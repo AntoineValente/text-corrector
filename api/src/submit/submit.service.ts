@@ -33,6 +33,7 @@ export class SubmitService {
     const prompt = buildSubmitPrompt(content);
 
     const stringResult = await this.aiModel.generateContent(prompt);
+
     const parsedFlaggedTokens = parseSubmissionResult(stringResult);
 
     if (!parsedFlaggedTokens) {

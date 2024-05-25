@@ -1,11 +1,11 @@
 import { MigrationInterface, QueryRunner } from "typeorm";
 
-export class AddUser1716557843829 implements MigrationInterface {
-    name = 'AddUser1716557843829'
+export class Init1716656660220 implements MigrationInterface {
+    name = 'Init1716656660220'
 
     public async up(queryRunner: QueryRunner): Promise<void> {
-        await queryRunner.query(`CREATE TYPE "public"."flagged_token_kind_enum" AS ENUM('CONJUGATION', 'NUMBER', 'GENDER_AGREEMENT', 'SPELLING', 'PUNCTUATION', 'WORD_CHOICE', 'SYNTAX')`);
-        await queryRunner.query(`CREATE TABLE "flagged_token" ("id" SERIAL NOT NULL, "offset" integer NOT NULL, "length" integer NOT NULL, "suggestion" character varying NOT NULL, "reason" character varying NOT NULL, "kind" "public"."flagged_token_kind_enum" NOT NULL, "textSubmissionId" integer, CONSTRAINT "PK_7d970c808b689af3b75540d9d3a" PRIMARY KEY ("id"))`);
+        await queryRunner.query(`CREATE TYPE "public"."flagged_token_kind_enum" AS ENUM('CONJUGATION', 'SPELLING', 'GRAMMAR', 'PUNCTUATION', 'WORD_CHOICE', 'SYNTAX')`);
+        await queryRunner.query(`CREATE TABLE "flagged_token" ("id" SERIAL NOT NULL, "startIndex" integer NOT NULL, "endIndex" integer NOT NULL, "suggestion" character varying NOT NULL, "reason" character varying NOT NULL, "kind" "public"."flagged_token_kind_enum" NOT NULL, "textSubmissionId" integer, CONSTRAINT "PK_7d970c808b689af3b75540d9d3a" PRIMARY KEY ("id"))`);
         await queryRunner.query(`CREATE TABLE "text_submission" ("id" SERIAL NOT NULL, "content" character varying NOT NULL, "createdAt" TIMESTAMP NOT NULL DEFAULT now(), "userId" character varying, CONSTRAINT "PK_dd2bcc283818f520db093c16065" PRIMARY KEY ("id"))`);
         await queryRunner.query(`CREATE TABLE "user" ("id" character varying NOT NULL, "email" character varying NOT NULL, "name" character varying NOT NULL, CONSTRAINT "PK_cace4a159ff9f2512dd42373760" PRIMARY KEY ("id"))`);
         await queryRunner.query(`ALTER TABLE "flagged_token" ADD CONSTRAINT "FK_9bfe57c69524503c01263eebfa1" FOREIGN KEY ("textSubmissionId") REFERENCES "text_submission"("id") ON DELETE NO ACTION ON UPDATE NO ACTION`);

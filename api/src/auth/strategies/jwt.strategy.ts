@@ -16,7 +16,6 @@ export class JwtStrategy extends PassportStrategy(Strategy, 'jwt') {
     @Inject(UserRepositoryToken) private userRepository: IUserRepository,
   ) {
     const extractJwtFromCookie = (req) => {
-      console.log(req.cookies);
       let token = null;
       if (req && req.cookies) {
         token = req.cookies['access_token'];
