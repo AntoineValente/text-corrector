@@ -1,30 +1,64 @@
-# React + TypeScript + Vite
+## Introduction
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+This frontend app allows users to input text and receive detailed feedback on mistakes.
 
-Currently, two official plugins are available:
+### Features:
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- Text correction: detailed error identification with suggestions and explanations.
+- User sign in / sign up: smooth process using Google Auth (UI Coming soon)
+- Exercises: Practice writing skills based on previous errors. (Coming soon)
 
-## Expanding the ESLint configuration
+## Tech stack
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+This application is built using **TypeScript**, **React**, **Vite**, **Tailwind CSS** and the **TanStack Query**.
 
-- Configure the top-level `parserOptions` property like this:
+The main motivation behind choosing this tech stack was to have an easy-to-setup stack that allows for quick proof of concept (POC) development.
 
-```js
-export default {
-  // other rules...
-  parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-  },
-}
+## Installation
+
+1. Clone the repository:
+
+```bash
+git clone https://github.com/AntoineValente/text-corrector
 ```
 
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+2. Go the the client folder
+
+```bash
+cd client
+```
+
+3. Install dependencies:
+
+```bash
+npm i
+# or
+yarn
+```
+
+## Usage
+
+1. Set the env variables (check `dist.env` for the dev values)
+
+```
+VITE_API_URL=
+VITE_GOOGLE_LOGIN_URL=
+```
+
+2. Run the project
+
+```bash
+npm run dev
+# or
+yarn dev
+```
+
+3. Open [http://localhost:5173/](http://localhost:5173/) with your browser to see the result.
+
+> As the sign in flow is not completed, for now you can go on the `VITE_GOOGLE_LOGIN_URL` in your browser to sign in through Google
+
+## Todo
+
+- [ ] Implement the sign in logic / screens
+- [ ] Add the exercise feature
+- [ ] Make it responsive
